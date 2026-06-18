@@ -131,6 +131,54 @@
         padding-left: 1.75rem;
         font-size: 12px;
       }
+      .page-switch {
+        padding: 0 1.25rem 1rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 1rem;
+      }
+      .page-switch-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 8px;
+      }
+      .page-switch a,
+      .doc-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 34px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 7px 12px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        background: var(--card-bg);
+        transition:
+          border-color 0.12s,
+          color 0.12s,
+          background 0.12s;
+      }
+      .page-switch a {
+        width: 100%;
+        margin-top: 6px;
+      }
+      .page-switch a:hover,
+      .doc-actions a:hover {
+        border-color: var(--blue-border);
+        color: var(--blue-mid);
+        background: var(--blue-bg);
+      }
+      .page-switch a.active,
+      .doc-actions a.active {
+        border-color: var(--blue-mid);
+        color: var(--blue-mid);
+        background: var(--blue-bg);
+        font-weight: 600;
+      }
 
       /* Header */
       .doc-header {
@@ -163,6 +211,12 @@
       }
       .stat-pill strong {
         color: var(--text-primary);
+      }
+      .doc-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 1rem;
       }
 
       /* Part headers */
@@ -644,6 +698,11 @@
           <h1>Flood Rescue App</h1>
           <p>Complete Question Bank</p>
         </div>
+        <div class="page-switch" aria-label="Page navigation">
+          <div class="page-switch-label">Pages</div>
+          <a class="active" href="index.html">Question bank</a>
+          <a href="answer.html">Answers &amp; defense</a>
+        </div>
         <div class="nav-part">
           <div class="nav-part-label">Part 1</div>
           <a class="nav-link nav-sub" href="#p1-arch"
@@ -714,6 +773,10 @@
               <strong>10</strong> stress-test questions
             </div>
             <div class="stat-pill"><strong>1</strong> full demo answer</div>
+          </div>
+          <div class="doc-actions" aria-label="Page navigation">
+            <a class="active" href="index.html">Question bank</a>
+            <a href="answer.html">Answers &amp; defense</a>
           </div>
         </div>
 

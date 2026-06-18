@@ -91,6 +91,54 @@
         padding-left: 34px;
         font-size: 12.5px;
       }
+      .page-switch {
+        padding: 0 20px 16px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 12px;
+      }
+      .page-switch-label {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .page-switch a,
+      .hero-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 8px 13px;
+        background: var(--panel);
+        color: var(--muted);
+        font-size: 13px;
+        text-decoration: none;
+        transition:
+          border-color 0.15s,
+          color 0.15s,
+          background 0.15s;
+      }
+      .page-switch a {
+        width: 100%;
+        margin-top: 7px;
+      }
+      .page-switch a:hover,
+      .hero-actions a:hover {
+        background: var(--panel2);
+        border-color: var(--primary);
+        color: var(--text);
+      }
+      .page-switch a.active,
+      .hero-actions a.active {
+        border-color: var(--primary);
+        color: #dff8ff;
+        background: rgba(17, 160, 182, 0.14);
+        font-weight: 700;
+      }
 
       /* Main */
       main {
@@ -125,6 +173,12 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
       }
       .toolbar {
         margin: 18px 0 26px;
@@ -340,6 +394,11 @@
           <h1>🌊 AquaGuard</h1>
           <p>Bộ câu hỏi phản biện & kịch bản demo</p>
         </div>
+        <div class="page-switch" aria-label="Điều hướng trang">
+          <div class="page-switch-label">Trang</div>
+          <a href="index.html">Bộ câu hỏi</a>
+          <a class="active" href="answer.html">Câu trả lời</a>
+        </div>
         <nav>
           <a class="part" href="#part1">Phần 1 · Kỹ thuật & hội đồng</a>
           <a class="sub" href="#p1s1">1. Kiến trúc & kỹ thuật</a>
@@ -385,6 +444,10 @@
               ><span class="dot d-road"></span> Định hướng / roadmap (chưa có
               trong code)</span
             >
+          </div>
+          <div class="hero-actions" aria-label="Điều hướng trang">
+            <a href="index.html">Bộ câu hỏi</a>
+            <a class="active" href="answer.html">Câu trả lời</a>
           </div>
         </header>
 
