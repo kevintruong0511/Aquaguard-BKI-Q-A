@@ -693,6 +693,39 @@
             Infrastructure</a
           >
         </div>
+        <div class="sb-section">
+          <div class="sb-label">Part 6 — Citizen UX</div>
+          <a class="sb-link" onclick="jump('p6-reg')"
+            ><span class="sb-dot" style="background: #c04e1a"></span
+            >Registration</a
+          >
+          <a class="sb-link" onclick="jump('p6-sos')"
+            ><span class="sb-dot" style="background: #c04e1a"></span>SOS & what
+            happens next</a
+          >
+        </div>
+        <div class="sb-section">
+          <div class="sb-label">Part 7 — Rescuer UX</div>
+          <a class="sb-link" onclick="jump('p7-flow')"
+            ><span class="sb-dot" style="background: var(--blue)"></span
+            >Accepting cases</a
+          >
+          <a class="sb-link" onclick="jump('p7-nav')"
+            ><span class="sb-dot" style="background: var(--blue)"></span
+            >Navigation & field ops</a
+          >
+        </div>
+        <div class="sb-section">
+          <div class="sb-label">Part 8 — Scaling</div>
+          <a class="sb-link" onclick="jump('p8-tech')"
+            ><span class="sb-dot" style="background: var(--purple)"></span
+            >Technical scaling</a
+          >
+          <a class="sb-link" onclick="jump('p8-ops')"
+            ><span class="sb-dot" style="background: var(--purple)"></span>Ops &
+            geographic scale</a
+          >
+        </div>
       </aside>
 
       <!-- MAIN -->
@@ -715,8 +748,8 @@
           </div>
           <div class="hero-pills" style="margin-top: 12px">
             <div class="pill"><strong>6</strong> core features built</div>
-            <div class="pill"><strong>99</strong> total questions answered</div>
-            <div class="pill"><strong>5</strong> jury challenge answers</div>
+            <div class="pill"><strong>130+</strong> questions answered</div>
+            <div class="pill"><strong>8</strong> topic sections</div>
             <div class="pill"><strong>MVP</strong> user-tested</div>
           </div>
         </div>
@@ -4212,6 +4245,1012 @@
           </tr>
         </table>
 
+        <!-- ═══════════════ PART 6 ═══════════════ -->
+        <div class="part" id="p6">
+          <div class="part-eye">Part 6</div>
+          <h2>Citizen & Victim — How-to & Real-Use Questions</h2>
+          <p>
+            Questions that citizens, flood victims, and the general public ask
+            when they first encounter the app — practical, emotional, and
+            experience-driven.
+          </p>
+        </div>
+
+        <div class="section" id="p6-reg">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: #c04e1a"></div>
+            <h3>Registration & Getting Started</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q1</span
+              ><span class="qa-text"
+                >Do I need to create an account before I can send an SOS?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Yes — citizens register an account before using the app.
+                Registration takes under 2 minutes: enter your name, phone
+                number, receive an OTP, and you're in. We require registration
+                (unlike a fully anonymous flow) because it gives rescuers
+                critical information — your name, a photo to identify you, and
+                your household profile — that makes the rescue faster and safer.
+                A rescuer arriving at a flood scene with your name and photo can
+                confirm they have the right person and the right address.
+              </p>
+              <p>
+                Registration also allows the system to send you status
+                notifications about your SOS and lets family members track your
+                rescue in real time. We recognize registration adds 2 minutes of
+                friction upfront — which is why we strongly encourage people in
+                flood-prone areas to
+                <strong>register before a flood event, not during one.</strong>
+              </p>
+              <div class="note">
+                Preparedness messaging: download and register during dry season.
+                The 2-minute registration becomes a problem only if it's done in
+                a panic at rising water.
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q2</span
+              ><span class="qa-text"
+                >I've never used this app before and my house is flooding right
+                now. What do I do first?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                If you do not have an account yet: download the app, tap
+                "Register," enter your name and phone number, enter the OTP sent
+                to your phone, then tap the large red SOS button. That is 4
+                steps. We have timed this: a first-time user who can read the
+                screen can complete it in under 90 seconds on a working phone.
+              </p>
+              <p>
+                Once SOS is sent, you will see a confirmation screen telling you
+                your alert has been received.
+                <strong>Stay where you are if it is safe to do so</strong> —
+                moving makes it harder for rescuers to find you. Keep your phone
+                charged and the app open if possible so your location stays
+                live.
+              </p>
+              <p>
+                If you cannot register in time — because your phone is too wet,
+                your hands are shaking, or you have no signal — ask a family
+                member in a dry location to submit a proxy SOS for you with your
+                address.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q3</span
+              ><span class="qa-text"
+                >What information does the app collect about me when I
+                register?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Registration collects: your name, phone number, and optionally a
+                profile photo. During an active SOS, your live GPS location is
+                transmitted to verified rescue teams and the command dashboard
+                only. After the rescue is complete, location tracking stops
+                automatically.
+              </p>
+              <p>
+                Optional household profile fields — number of people in your
+                home, whether any are elderly or children, and any medical
+                conditions — are never required but dramatically help rescuers
+                prepare the right equipment before arrival. You can fill these
+                in at any time from your profile screen, ideally before flood
+                season.
+              </p>
+              <p>
+                We do not share your personal data with advertisers, third-party
+                companies, or any party outside the rescue operation. Full
+                details are in our privacy policy, which complies with Vietnam's
+                Decree 13/2023/ND-CP on personal data protection.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q4</span
+              ><span class="qa-text"
+                >Can I use the app on an old Android phone from 2018?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Yes. The web app runs on Chrome or Firefox on any Android device
+                running Android 8.0 or newer — which covers the vast majority of
+                phones still in use in Vietnam today, including budget devices
+                with 2GB RAM. The iOS native app supports iPhone 7 and newer.
+              </p>
+              <p>
+                We specifically tested on low-end devices during our MVP phase
+                and optimized for them: no heavy animations, lightweight map
+                tiles, and a minimal-data mode that strips non-essential UI when
+                bandwidth is slow. If your phone is too old or too slow to run
+                the app, the proxy SOS flow — where a family member submits a
+                request on your behalf — remains available as a fallback.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="p6-sos">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: #c04e1a"></div>
+            <h3>Sending SOS & What Happens Next</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q5</span
+              ><span class="qa-text"
+                >I tapped SOS. How do I know someone actually received it?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Immediately after you hold the SOS button for 2 seconds and
+                release, the screen shows a confirmation:
+                <strong
+                  >"Your SOS has been received. Rescue teams in your area have
+                  been notified."</strong
+                >
+                This confirmation only appears once the server has acknowledged
+                the alert — it is not a local fake confirmation.
+              </p>
+              <p>
+                Within minutes, your status updates to show: which rescue team
+                has been assigned to you, the rescuer's name and verified badge,
+                and a live dot on the map showing the team moving toward your
+                location. You will also receive a push notification when a team
+                is assigned. If no team is assigned within 5 minutes, the system
+                automatically flags your case on the command dashboard for
+                manual operator attention.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q6</span
+              ><span class="qa-text"
+                >I sent SOS by accident. How do I cancel it?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                After sending an SOS, a
+                <strong>10-second cancellation window</strong> appears on screen
+                with a prominent "Cancel — this was a mistake" button. If you
+                tap it within 10 seconds, the alert is withdrawn and no rescue
+                team is dispatched. After 10 seconds, the SOS is confirmed and
+                enters the dispatch queue — at that point, tap "Cancel my SOS"
+                from the status screen, which notifies the assigned team and
+                releases the case. False alarms are logged to help us improve
+                the hold-to-confirm mechanism, but there is no penalty for the
+                user.
+              </p>
+              <p>
+                The 2-second hold-to-confirm design prevents most accidental
+                triggers. The 10-second cancellation window catches the ones
+                that slip through.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q7</span
+              ><span class="qa-text"
+                >How long until someone actually arrives at my door?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                The app shows you a live estimated arrival time based on the
+                assigned team's current GPS position and the route to you. This
+                updates in real time as the team moves — if they encounter a
+                blocked road and reroute, the ETA updates accordingly and you
+                receive a notification explaining the change.
+              </p>
+              <p>
+                Physical arrival time depends entirely on distance, flood
+                conditions, and available rescue capacity in your area — we do
+                not promise a fixed window because flood geography varies
+                enormously. What we do guarantee: your alert reaches a rescue
+                team within seconds of being sent, and you are never left
+                without a status update for more than a few minutes. If your
+                rescue is delayed, you will know why.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q8</span
+              ><span class="qa-text"
+                >The app says a rescuer is coming but it has been 2 hours and no
+                one has arrived. What do I do?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                First, check the live status screen — it shows the rescuer's
+                current GPS position. If the dot has not moved for more than 15
+                minutes, the system has already automatically triggered an alert
+                to that rescuer and to the command center. If no response comes
+                within 5 more minutes, the system auto-reassigns your case to
+                the nearest available team and you receive a notification: "A
+                new rescue team has been assigned to you."
+              </p>
+              <p>
+                If you are in immediate danger and the situation has changed
+                since you sent the original SOS, you can update your case with a
+                new note — tap "Update my situation" from the status screen to
+                add details like rising water level or worsening health
+                condition. This escalates your case priority automatically.
+              </p>
+              <p>
+                You can also use the in-app messaging channel to send a message
+                directly to the assigned rescuer, or tap the emergency call
+                button to reach the command center operator by phone.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q9</span
+              ><span class="qa-text"
+                >Can my family in another city see that I am safe after the
+                rescue?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Yes — this is a core feature. Any family member you have
+                designated as an emergency contact in your profile receives an
+                automatic push notification and SMS the moment the rescue team
+                marks your case as completed:
+                <strong
+                  >"[Your name] has been reached by a rescue team and is
+                  confirmed safe."</strong
+                >
+                The notification includes the timestamp and the rescuer's name.
+              </p>
+              <p>
+                Your family can also follow the rescue in real time from their
+                own phone — they see your live location, the rescuer's position
+                moving toward you, and the status updates as they happen. They
+                do not need to call anyone to find out what is going on. Closing
+                the anxiety loop for family members is something we treat as
+                equally important as the rescue itself.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════ PART 7 ═══════════════ -->
+        <div class="part" id="p7">
+          <div class="part-eye">Part 7</div>
+          <h2>Rescuer — Workflow & Practical Operation Questions</h2>
+          <p>
+            Questions that rescue team members ask about their day-to-day use of
+            the app during an active flood event.
+          </p>
+        </div>
+
+        <div class="section" id="p7-flow">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: var(--blue)"></div>
+            <h3>Accepting & Managing Cases</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q1</span
+              ><span class="qa-text"
+                >How do I receive and accept a rescue case?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                When an SOS alert comes in for your area, you receive a push
+                notification with a brief preview: victim name, distance from
+                your current position, and any vulnerability flags (elderly,
+                children, medical needs). Tap the notification to open the full
+                case detail — victim's name, profile photo, exact location on
+                the map, household size, and any notes they have submitted.
+              </p>
+              <p>
+                Tap <strong>"Accept this case"</strong> to claim it. The case is
+                immediately locked to you and removed from the queue — no other
+                rescuer can accept the same victim. Your map updates to show the
+                optimized route to the victim's location, avoiding roads marked
+                as flooded or impassable. You are now the responsible rescuer
+                for this case until you mark it complete or release it.
+              </p>
+              <div class="flow">
+                <div class="fn fn-b">SOS alert push</div>
+                <div class="fa">→</div>
+                <div class="fn fn-a">Review case details</div>
+                <div class="fa">→</div>
+                <div class="fn fn-g">Tap Accept</div>
+                <div class="fa">→</div>
+                <div class="fn fn-b">Route shown on map</div>
+                <div class="fa">→</div>
+                <div class="fn fn-g">Navigate to victim</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q2</span
+              ><span class="qa-text"
+                >What information do I see about the victim when I accept a
+                case?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                The case card shows: the victim's
+                <strong>full name and profile photo</strong> (so you can confirm
+                identity on arrival), their
+                <strong>live GPS location</strong> on the map with a
+                last-updated timestamp,
+                <strong>household details</strong> (number of people, whether
+                any are elderly, children under 12, or have medical conditions),
+                and any <strong>free-text notes</strong> they submitted with
+                their SOS ("We are on the second floor, grandmother cannot
+                walk").
+              </p>
+              <p>
+                You also see the victim's <strong>phone number</strong> so you
+                can call them directly if needed, and an in-app messaging
+                channel to send them a message without leaving the app. If the
+                SOS was submitted by a proxy (family member on their behalf),
+                that is clearly labelled so you know the information is
+                secondhand and may be less precise.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q3</span
+              ><span class="qa-text"
+                >I'm on the way to one victim and I can see another victim very
+                close by on the map. Can I pick them up too?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Yes — and the app is specifically designed to make this easy.
+                While you are en route, the map shows all nearby unassigned SOS
+                pins as orange markers. You can tap any of them to view the case
+                detail and accept it from your current screen without navigating
+                away from your route. If you accept a second case, your route
+                updates to show the most efficient order to reach both victims.
+              </p>
+              <p>
+                This decision is always yours — the system shows you what is
+                nearby but never forces additional cases on you. You know your
+                boat capacity, the water depth, and the urgency on the ground
+                better than any algorithm does. If you cannot safely take
+                another case, leave it in the queue for another team.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q4</span
+              ><span class="qa-text"
+                >I arrived at the location but the victim is not here — what do
+                I do?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Tap <strong>"Victim not found at this location"</strong> from
+                the case screen. This opens a short form asking for the reason
+                (address incorrect, victim already evacuated, GPS was
+                inaccurate) and lets you add a note about what you found. The
+                case is immediately returned to the open queue with a priority
+                escalation flag and a note for the next team: "Previous dispatch
+                unsuccessful — location may be inaccurate."
+              </p>
+              <p>
+                The system also sends an automatic prompt to the victim's phone
+                asking them to re-confirm or correct their location. If the
+                victim's phone is reachable, they can update their pin in real
+                time so the next rescuer goes to the right place. Your dispatch
+                record is logged accurately — a "not found" outcome never counts
+                against you, and the full context is preserved for the command
+                center.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q5</span
+              ><span class="qa-text"
+                >The road I was going to take is now blocked. How do I report it
+                and get a new route?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Tap the <strong>"Report blockage"</strong> button on your active
+                route screen — it appears as a warning icon in the navigation
+                bar. Select the blockage type from the dropdown (bridge down,
+                road flooded, road collapsed, debris blocking) and confirm.
+                Within seconds, three things happen simultaneously: the blockage
+                is posted to the live map for all users in the area, your route
+                is recalculated via Google Maps with the new obstacle excluded,
+                and the command dashboard is notified.
+              </p>
+              <p>
+                If no alternative route exists to your assigned victim, the
+                system automatically flags the case as "No ground route
+                available" on the command dashboard, triggering the operator to
+                consider alternative dispatch (boat from a different entry
+                point, helicopter, or another team approaching from a different
+                direction).
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q6</span
+              ><span class="qa-text"
+                >How do I close a case after completing a rescue?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Tap one of three outcome buttons on the case screen:
+                <strong>"Rescued — victim is safe,"</strong>
+                <strong>"Victim requires additional medical help"</strong>
+                (escalates to the command center for medical dispatch), or
+                <strong>"Victim not found."</strong> No text is required — one
+                tap closes the case. An optional notes field lets you add
+                context for the record ("Four people evacuated, one with ankle
+                injury, taken to Trường Tiểu Học Bình An shelter").
+              </p>
+              <p>
+                The moment you tap "Rescued," the victim's family receives an
+                automatic notification, the case is closed on the command
+                dashboard, and your status returns to "Available" — you
+                immediately appear as a free resource for the next assignment.
+                The full case record including your GPS trail, timestamps, and
+                outcome is stored permanently for post-event reporting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="p7-nav">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: var(--blue)"></div>
+            <h3>Navigation & Field Conditions</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q7</span
+              ><span class="qa-text"
+                >Does the navigation know which roads are flooded, or does it
+                just use Google Maps normally?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Our routing uses the Google Maps API but with a flood exclusion
+                layer on top. Roads that have been marked as flooded or
+                impassable — by government data, IoT sensors, or field reports
+                from other rescuers — are passed to the routing API as
+                exclusions, so they are not included in calculated routes. The
+                result is a path that avoids known flood zones, not just the
+                shortest path.
+              </p>
+              <p>
+                The map also shows water depth indicators at sensor-equipped
+                locations: color-coded by passability (vehicle passable in blue,
+                boat only in amber, impassable in red). When depth data is not
+                available for a road, it is shown as unknown — never silently
+                assumed to be safe. You always know what you're navigating on.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q8</span
+              ><span class="qa-text"
+                >The app is showing me a route but I can see with my own eyes
+                that the road is passable. Can I override the map?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Absolutely — you are the ground truth, not the map. You can
+                dismiss the suggested route and navigate manually at any time.
+                If you find that a road the map marked as flooded is actually
+                passable, you can tap
+                <strong>"Mark this road as passable"</strong> to update the map
+                for other rescuers in real time. Your ground-level observation
+                immediately improves the routing data for every other team in
+                the area.
+              </p>
+              <p>
+                The map is a decision aid, not an authority. Field judgment
+                always takes precedence — and your field corrections make the
+                map more accurate for the next team, the next event, and the
+                next flood season.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q9</span
+              ><span class="qa-text"
+                >My phone keeps showing me as stationary on the command
+                dashboard even though I'm moving. What's wrong?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                This usually means GPS signal is temporarily lost or degraded —
+                common in areas with heavy cloud cover, dense tree canopy, or
+                near large metal structures like flood barriers. The app will
+                show your last confirmed position until a new GPS fix is
+                acquired. Check that location permissions for the app are set to
+                "Always allow" in your phone settings, and that you are not in
+                low-power mode, which can restrict background GPS.
+              </p>
+              <p>
+                If the problem persists, open the app, go to your status screen,
+                and tap <strong>"Refresh my location"</strong> — this forces a
+                new GPS acquisition. If GPS remains unavailable, the app falls
+                back to cell tower triangulation, which is less precise but
+                keeps your dot on the map. The command dashboard will show your
+                position with a lower-confidence indicator so operators know the
+                accuracy is reduced.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════ PART 8 ═══════════════ -->
+        <div class="part" id="p8">
+          <div class="part-eye">Part 8</div>
+          <h2>Scaling — From MVP to National Deployment</h2>
+          <p>
+            Questions about what happens when the system grows from hundreds of
+            users to tens of thousands, across multiple provinces and disaster
+            types.
+          </p>
+        </div>
+
+        <div class="section" id="p8-tech">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: var(--purple)"></div>
+            <h3>Technical Scaling</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q1</span
+              ><span class="qa-text"
+                >The MVP handles hundreds of users. What changes architecturally
+                when you need to handle 50,000 concurrent users across three
+                provinces during a major flood?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                The core architecture is already designed for horizontal scale —
+                this was a deliberate early decision. The specific changes
+                required to go from hundreds to 50,000 concurrent users:
+              </p>
+              <div class="steps">
+                <div class="step">
+                  <div
+                    class="step-n"
+                    style="background: var(--blue-bg); color: var(--blue)"
+                  >
+                    1
+                  </div>
+                  <div class="step-body">
+                    <strong>Infrastructure migration to AWS / GCP</strong> —
+                    moving from Render to a multi-AZ cloud deployment with
+                    auto-scaling groups. Node.js instances scale horizontally
+                    behind a load balancer; PostgreSQL moves to a managed RDS
+                    with read replicas; Redis moves to ElastiCache cluster
+                    mode.<span class="step-code"
+                      >Effort: ~2 weeks. No code changes required.</span
+                    >
+                  </div>
+                </div>
+                <div class="step">
+                  <div
+                    class="step-n"
+                    style="background: var(--amber-bg); color: var(--amber)"
+                  >
+                    2
+                  </div>
+                  <div class="step-body">
+                    <strong>Socket.io multi-node with Redis adapter</strong> —
+                    at scale, multiple Node.js instances cannot share WebSocket
+                    connections without a coordination layer. Redis pub/sub acts
+                    as the message bus so a client connected to instance A
+                    receives events generated on instance B. This is a
+                    configuration change in Socket.io, not an architectural
+                    change.<span class="step-code"
+                      >Redis adapter: ~1 day to implement and test.</span
+                    >
+                  </div>
+                </div>
+                <div class="step">
+                  <div
+                    class="step-n"
+                    style="background: var(--green-bg); color: var(--green)"
+                  >
+                    3
+                  </div>
+                  <div class="step-body">
+                    <strong>Geographic sharding</strong> — at 3+ provinces, we
+                    partition the data by geographic zone. Each province's SOS
+                    queue, rescue assignments, and map data are handled by a
+                    dedicated database shard. Cross-province queries (national
+                    overview for the ministry) run against a read-only
+                    aggregation layer, not the operational shards.<span
+                      class="step-code"
+                      >Sharding implementation: ~3–4 weeks engineering.</span
+                    >
+                  </div>
+                </div>
+                <div class="step">
+                  <div
+                    class="step-n"
+                    style="
+                      background: var(--purple-bg);
+                      color: var(--purple-mid);
+                    "
+                  >
+                    4
+                  </div>
+                  <div class="step-body">
+                    <strong>CDN for map tiles</strong> — at scale, serving map
+                    tiles from the application server is a bottleneck. We move
+                    static tile serving to a CDN (CloudFront or equivalent) so
+                    map load is entirely off the application
+                    infrastructure.<span class="step-code"
+                      >CDN setup: ~1 day.</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <p>
+                Total engineering time to go from current MVP to 50,000-user
+                production: approximately <strong>6–8 weeks</strong> with a team
+                of 3 engineers. The application code does not change — only
+                infrastructure configuration and the Socket.io adapter.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q2</span
+              ><span class="qa-text"
+                >How does the database handle 10,000 GPS location writes per
+                minute during peak flood?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Location writes are the highest-volume operation in the system
+                at scale. We handle this with a two-tier write strategy.
+                <strong>Tier 1 — Redis (hot data):</strong> every incoming GPS
+                update overwrites the current position key for that user in
+                Redis. This is an O(1) operation; Redis handles 100,000+ writes
+                per second without breaking a sweat. The live map is served
+                entirely from Redis — rescuers see the current position, not a
+                database query result.
+              </p>
+              <p>
+                <strong>Tier 2 — PostgreSQL (cold data):</strong> location
+                history is written to PostgreSQL asynchronously via a write
+                queue, batched every 10 seconds. Instead of 10,000 individual
+                inserts per minute, the database receives roughly 60 batch
+                writes per minute. This keeps PostgreSQL under comfortable load
+                while retaining the full position history for audit, post-event
+                analysis, and the movement-detection logic.
+              </p>
+              <p>
+                At 10,000 GPS writes per minute, this architecture keeps
+                PostgreSQL CPU below 30% on a mid-range RDS instance
+                (db.t3.medium). We have headroom to 3–4x that load before
+                needing to scale the database tier.
+              </p>
+              <div class="tech">
+                <span>Redis SETEX for hot position</span
+                ><span>PG batch insert via queue</span
+                ><span>10-sec flush interval</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q3</span
+              ><span class="qa-text"
+                >What happens to system performance when 500 rescuers and 2,000
+                victims are all on the map simultaneously in the same
+                province?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                This is the scenario we designed Socket.io rooms for. Instead of
+                broadcasting every location update to every connected client —
+                which at 2,500 users would mean millions of messages per minute
+                — we use <strong>geographic zone rooms</strong>. A rescuer in
+                Quảng Nam province only receives updates for users within their
+                operational zone, not Hà Tĩnh or An Giang.
+              </p>
+              <p>
+                The command dashboard for a provincial operator receives
+                aggregated updates for their province only. The national
+                ministry dashboard receives province-level summaries (total SOS
+                count, total rescues, active teams) rather than individual GPS
+                streams — this is a separate low-frequency data feed, not a
+                firehose of 2,500 individual positions.
+              </p>
+              <p>
+                In practice, a province-level event with 500 rescuers and 2,000
+                victims in a single zone is the worst-case scenario our current
+                architecture is designed for. Beyond that — a truly national
+                event — we would activate geographic sharding and additional
+                Socket.io nodes per province. This is a scale-out operation, not
+                a redesign.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q4</span
+              ><span class="qa-text"
+                >How do you prevent the system from becoming a single point of
+                failure for rescue coordination across an entire province?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Three principles. First,
+                <strong>device-side resilience:</strong> every rescuer's active
+                assignment and every victim's queued SOS is cached on the
+                device. If the server goes down entirely, rescuers can continue
+                navigating to their assigned victim using the last known
+                position and cached map tiles. They are not immediately
+                helpless.
+              </p>
+              <p>
+                Second, <strong>no exclusive dependency:</strong> the system is
+                built as an enhancement to, not a replacement for, existing
+                civil defense radio and phone coordination. Government rescue
+                teams are trained and equipped to operate without our platform.
+                Our outage means degraded coordination, not zero coordination.
+              </p>
+              <p>
+                Third, <strong>fast recovery:</strong> on AWS with auto-scaling
+                and health checks, a failed instance is replaced automatically
+                within 60–90 seconds. Our disaster recovery target (RTO) is
+                under 5 minutes for a single-instance failure, under 15 minutes
+                for a full availability zone failure. We maintain a hot standby
+                in a separate AZ that receives synchronous writes — failover is
+                automatic with no data loss.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="p8-ops">
+          <div class="sec-head">
+            <div class="sec-bar" style="background: var(--purple)"></div>
+            <h3>Operational & Geographic Scaling</h3>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q5</span
+              ><span class="qa-text"
+                >If you expand to 10 provinces, how do you manage 10 different
+                government agencies all with different admin setups?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                We use a <strong>federated multi-tenant architecture</strong>.
+                Each province operates as an isolated tenant: their own admin
+                accounts, their own verified rescuer roster, their own SOS
+                queue, and their own data — completely separated at the database
+                level from every other province. A Quảng Ngãi admin cannot see
+                An Giang data, and vice versa.
+              </p>
+              <p>
+                The national Ministry of Agriculture and Rural Development (if
+                they adopt the system) gets a read-only aggregation dashboard
+                showing national-level statistics — total active events, total
+                people rescued, province-by-province response metrics — without
+                accessing any individual province's operational data. This
+                respects both data sovereignty and the administrative hierarchy
+                of Vietnam's disaster response structure.
+              </p>
+              <p>
+                Onboarding a new province is a configuration operation: create
+                the tenant, set up their admin accounts, configure their
+                geographic zone boundaries, and they are live. We target under 1
+                business day to onboard a new provincial deployment once the
+                government agreement is signed.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q6</span
+              ><span class="qa-text"
+                >What is the cost structure as you scale? Does cost grow
+                linearly with users?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                Infrastructure cost grows sub-linearly with users due to the
+                efficiency of Redis caching and batched database writes. The
+                dominant cost drivers at scale are compute (Socket.io server
+                instances) and database storage (location history). Here is a
+                rough cost model:
+              </p>
+              <table>
+                <tr>
+                  <th>Scale</th>
+                  <th>Concurrent users</th>
+                  <th>Est. monthly infra cost</th>
+                </tr>
+                <tr>
+                  <td>MVP (current)</td>
+                  <td>~500</td>
+                  <td>~$80 (Render)</td>
+                </tr>
+                <tr>
+                  <td>Single province</td>
+                  <td>~5,000</td>
+                  <td>~$400–600 (AWS)</td>
+                </tr>
+                <tr>
+                  <td>3 provinces</td>
+                  <td>~15,000</td>
+                  <td>~$1,200–1,800 (AWS)</td>
+                </tr>
+                <tr>
+                  <td>National (10 provinces)</td>
+                  <td>~50,000</td>
+                  <td>~$3,500–5,000 (AWS)</td>
+                </tr>
+              </table>
+              <p>
+                These costs are covered by the government licensing fee, which
+                is structured per province per year. The licensing fee is set to
+                cover infrastructure plus team operating costs with margin. Cost
+                per user decreases significantly at scale — which makes the
+                business case stronger, not weaker, as adoption grows.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q7</span
+              ><span class="qa-text"
+                >How do you scale the human side — who trains and supports
+                10,000 rescuers across 10 provinces?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                We use a <strong>train-the-trainer model</strong>, not direct
+                training at scale. For each province, we train 3–5 "super users"
+                — typically the provincial civil defense IT officer and senior
+                team leaders — who then train their own teams. Our training
+                package includes: a 2-hour facilitator guide, a simulated flood
+                exercise that runs on a test environment with seeded victim
+                data, and a quick-reference card for rescuers that fits on a
+                laminated A5 sheet.
+              </p>
+              <p>
+                Ongoing support is tiered: in-app help documentation handles
+                common questions, a provincial super user handles team-level
+                issues, and our support team handles platform-level incidents.
+                We target a ratio of 1 support engineer per 5 active provincial
+                deployments — scalable because most issues are user error caught
+                at the super user level, not platform bugs.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa">
+            <div class="qa-q" onclick="toggle(this)">
+              <span class="qa-num">Q8</span
+              ><span class="qa-text"
+                >What does the system look like in 3 years at full scale — and
+                what are the biggest risks to getting there?</span
+              ><span class="qa-chevron">›</span>
+            </div>
+            <div class="qa-a">
+              <p>
+                <strong>The 3-year vision:</strong> deployed across Vietnam's 10
+                most flood-vulnerable provinces (Miền Trung coastline + Mekong
+                Delta), integrated with VNMHA's official flood warning system,
+                with a predictive risk layer trained on 3 flood seasons of
+                historical data, and the drone relay system productized and
+                deployed in partnership with civil defense aviation units.
+              </p>
+              <p><strong>The three biggest risks to getting there:</strong></p>
+              <p>
+                <strong>1. Government procurement speed.</strong> Vietnam's
+                public sector procurement cycle is 12–24 months from first
+                conversation to signed contract. We are building relationships
+                now, but the timeline is not in our control. Mitigation: pursue
+                NGO and international humanitarian organization pilots in
+                parallel, which move faster and build the evidence base that
+                government procurement requires.
+              </p>
+              <p>
+                <strong>2. Connectivity infrastructure in remote areas.</strong>
+                Our system depends on mobile network coverage that simply does
+                not exist in parts of the Central Highlands and remote Mekong
+                Delta communities. The drone relay addresses this partially, but
+                terrain and population density make some areas genuinely hard to
+                serve digitally. Mitigation: honest scoping of which areas we
+                can serve well, and active partnership with telecoms on
+                emergency network expansion plans.
+              </p>
+              <p>
+                <strong>3. Sustained funding before revenue.</strong> The gap
+                between MVP and first government contract is 12–18 months of
+                operating costs with no paying customers. We are addressing this
+                through seed investment and international grant funding (UNDP,
+                ADB disaster resilience programs). The risk is real — we manage
+                it through lean team structure and shared infrastructure costs
+                with partner NGOs.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div
           style="
             margin-top: 48px;
@@ -4273,6 +5312,12 @@
         'p5-j3',
         'p5-j4',
         'p5-j5',
+        'p6-reg',
+        'p6-sos',
+        'p7-flow',
+        'p7-nav',
+        'p8-tech',
+        'p8-ops',
       ];
       window.addEventListener(
         'scroll',
