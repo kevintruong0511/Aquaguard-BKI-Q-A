@@ -91,49 +91,6 @@
         color: var(--ink-4);
         margin-top: 2px;
       }
-      .page-switch {
-        padding: 12px 18px 14px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 10px;
-      }
-      .page-switch-label {
-        font-size: 10px;
-        font-weight: 700;
-        color: var(--ink-4);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        margin-bottom: 8px;
-      }
-      .page-switch a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-height: 34px;
-        margin-top: 6px;
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        padding: 7px 12px;
-        font-size: 12.5px;
-        color: var(--ink-3);
-        text-decoration: none;
-        background: var(--card);
-        transition:
-          border-color 0.12s,
-          color 0.12s,
-          background 0.12s;
-      }
-      .page-switch a:hover {
-        border-color: var(--blue-mid);
-        color: var(--blue);
-        background: var(--blue-bg);
-      }
-      .page-switch a.active {
-        border-color: var(--blue-mid);
-        color: var(--blue);
-        background: var(--blue-bg);
-        font-weight: 600;
-      }
       .sb-section {
         margin-bottom: 2px;
       }
@@ -625,12 +582,6 @@
           <p>Official Answer Bank</p>
         </div>
 
-        <div class="page-switch" aria-label="Page navigation">
-          <div class="page-switch-label">Pages</div>
-          <a href="index.html">Question bank</a>
-          <a class="active" href="answer.html">Answers &amp; defense</a>
-        </div>
-
         <div class="sb-section">
           <div class="sb-label">Part 1 — Jury</div>
           <a class="sb-link" onclick="jump('p1-arch')"
@@ -719,6 +670,29 @@
             rescue</a
           >
         </div>
+        <div class="sb-section">
+          <div class="sb-label">Part 5 — Jury Challenge</div>
+          <a class="sb-link" onclick="jump('p5-j1')"
+            ><span class="sb-dot" style="background: var(--red)"></span>J1 ·
+            Drone relay</a
+          >
+          <a class="sb-link" onclick="jump('p5-j2')"
+            ><span class="sb-dot" style="background: var(--red)"></span>J2 ·
+            Legal liability</a
+          >
+          <a class="sb-link" onclick="jump('p5-j3')"
+            ><span class="sb-dot" style="background: var(--amber)"></span>J3 ·
+            GPS battery</a
+          >
+          <a class="sb-link" onclick="jump('p5-j4')"
+            ><span class="sb-dot" style="background: var(--amber)"></span>J4 ·
+            Rescuer adoption</a
+          >
+          <a class="sb-link" onclick="jump('p5-j5')"
+            ><span class="sb-dot" style="background: var(--green)"></span>J5 ·
+            Infrastructure</a
+          >
+        </div>
       </aside>
 
       <!-- MAIN -->
@@ -741,7 +715,8 @@
           </div>
           <div class="hero-pills" style="margin-top: 12px">
             <div class="pill"><strong>6</strong> core features built</div>
-            <div class="pill"><strong>94</strong> total questions answered</div>
+            <div class="pill"><strong>99</strong> total questions answered</div>
+            <div class="pill"><strong>5</strong> jury challenge answers</div>
             <div class="pill"><strong>MVP</strong> user-tested</div>
           </div>
         </div>
@@ -2792,16 +2767,24 @@
               </div>
               <div class="qa-a">
                 <p>
-                  Priority scoring combines:
-                  <strong>proximity to available rescue team</strong> (nearest
-                  team = faster response),
-                  <strong>vulnerability flags</strong> (elderly, children,
-                  medical needs = higher priority), and
-                  <strong>time since SOS</strong> (older unassigned alerts are
-                  escalated). The command dashboard sorts the queue by this
-                  composite score. Operators can override the algorithm's
-                  prioritization at any time — the system assists human
-                  judgment, it does not replace it.
+                  Priority is determined by two factors combined into a score.
+                  <strong>Proximity:</strong> the distance between the nearest
+                  available rescue team and the victim — shorter distance means
+                  faster response and higher priority.
+                  <strong>Vulnerability:</strong> when a victim or proxy
+                  submitter has indicated the presence of children under 12,
+                  elderly individuals, or people with medical needs, those cases
+                  receive a priority multiplier that can elevate them above
+                  closer but lower-vulnerability cases.
+                </p>
+                <p>
+                  The result is a ranked queue on the command dashboard —
+                  rescuers can accept from the top of this queue, or the system
+                  can auto-assign the top case to the nearest available team.
+                  Operators can always override the ranking manually, because
+                  local knowledge — a blocked road, a team with the wrong
+                  equipment, a case with additional context — will always matter
+                  more than an algorithm score alone.
                 </p>
               </div>
             </div>
@@ -2815,13 +2798,24 @@
               </div>
               <div class="qa-a">
                 <p>
-                  Yes. When a rescuer accepts an assignment, the system checks
-                  for other unassigned victims within a 200m radius of the route
-                  and surfaces them as
-                  <strong>"nearby — consider adding to this run."</strong> The
-                  rescuer accepts or declines each suggestion. This is advisory,
-                  not mandatory — rescuers know local conditions that the
-                  algorithm cannot account for.
+                  Each SOS is assigned as an individual case — we do not
+                  auto-bundle cases into a single assignment, because bundling
+                  can create accountability gaps (who is responsible for which
+                  victim?). However, the system is designed to enable natural
+                  clustering by rescuers in the field.
+                </p>
+                <p>
+                  When a rescuer is en route to an assigned victim, the map
+                  displays all unassigned victims within the surrounding area.
+                  If the rescuer sees they will pass close to another victim,
+                  they can accept that second case directly from their route
+                  screen without returning to the queue. The command dashboard
+                  also shows the rescuer's current route and nearby unassigned
+                  cases, allowing operators to suggest additional pickups via
+                  in-app message.
+                  <strong>The decision stays with the rescuer</strong> — they
+                  know their boat capacity, the water conditions, and the
+                  urgency on the ground better than any algorithm does.
                 </p>
               </div>
             </div>
@@ -3274,12 +3268,20 @@
                   token contains their identity; when the app restarts and
                   reconnects, the server restores their active assignment
                   automatically. The victim's SOS remains in "assigned" state
-                  until the rescuer either completes it or explicitly releases
-                  it. A 30-minute silent timeout also protects against a rescuer
-                  going completely offline — after 30 minutes with no heartbeat,
-                  the command dashboard flags the assignment for review without
-                  auto-releasing it, so an operator makes the conscious decision
-                  to reassign.
+                  and the rescuer can resume navigating without any action from
+                  an operator.
+                </p>
+                <p>
+                  However, if the app crash also causes the rescuer to stop
+                  moving (they put the phone down to reboot it, for instance),
+                  the <strong>movement-based escalation timer starts</strong>:
+                  after 15 minutes stationary, the system sends a dual-channel
+                  alert. If the rescuer responds — by reopening the app and
+                  tapping confirm — the assignment continues normally. If they
+                  do not respond within 5 minutes, the system auto-reassigns to
+                  the nearest available team and flags the original rescuer for
+                  a welfare check. This ensures a crashed phone never silently
+                  orphans a victim.
                 </p>
               </div>
             </div>
@@ -3477,16 +3479,49 @@
               </div>
               <div class="qa-a">
                 <p>
-                  Yes — an <strong>inactivity escalation timer</strong> runs on
-                  every active assignment. At 30 minutes with no location update
-                  or status change, the command dashboard shows an amber warning
-                  on that assignment. At 60 minutes, it escalates to a red alert
-                  with an audio notification to the operator. At 90 minutes with
-                  no resolution, the system sends an automated SMS to the rescue
-                  team's registered contact number. These thresholds are
-                  configurable by the command center — in fast-moving flash
-                  flood conditions, operators may tighten the window to 15
-                  minutes.
+                  Yes — we use a
+                  <strong>two-stage inactivity escalation protocol</strong>
+                  triggered by GPS movement analysis, not just a time countdown.
+                </p>
+                <p>
+                  <strong>Stage 1 — Alert (T+15 min stationary):</strong> The
+                  system continuously tracks the rescuer's GPS position. If a
+                  rescuer assigned to an active case has not moved more than a
+                  defined threshold for 15 minutes, the system flags this as
+                  anomalous — a rescuer en route should be moving. An immediate
+                  dual-channel alert fires: an
+                  <strong>in-app warning banner</strong> on the rescuer's screen
+                  ("Are you still on mission? Tap to confirm") and a
+                  <strong>push notification + SMS</strong> to their registered
+                  number simultaneously. This dual channel ensures the alert
+                  reaches them even if the app is backgrounded or the screen is
+                  off.
+                </p>
+                <p>
+                  <strong
+                    >Stage 2 — Auto-reassignment (T+20 min, i.e. 5 min after
+                    alert):</strong
+                  >
+                  If the rescuer does not respond to the Stage 1 alert within 5
+                  minutes — no tap, no status update, no movement — the system
+                  automatically releases the case and assigns it to the nearest
+                  available rescuer. The victim receives an immediate push
+                  notification:
+                  <strong
+                    >"We're sending a new rescue team to you. Help is still
+                    coming."</strong
+                  >
+                  The original rescuer's case is flagged on the command
+                  dashboard as "silent — investigate," triggering a separate
+                  protocol to check on their wellbeing.
+                </p>
+                <p>
+                  The 15-minute movement threshold is calibrated to avoid false
+                  positives — a rescuer loading a victim onto a boat or
+                  navigating on foot may briefly stop. The combination of
+                  movement detection + dual-channel alert + 5-minute response
+                  window is designed to catch genuine problems without
+                  disrupting active rescues.
                 </p>
               </div>
             </div>
@@ -3502,14 +3537,23 @@
               <div class="qa-a">
                 <p>
                   Yes — the command dashboard maintains a
-                  <strong>location history trail</strong> for every active
-                  rescuer. An operator can see the last 2 hours of movement,
-                  where the team's path stopped updating, and at what timestamp.
-                  This tells the operator: did the team reach the victim's area?
-                  Are they stationary (potentially on scene but without signal)
-                  or did they stop short (potentially blocked or in difficulty)?
-                  This information is the basis for deciding whether to dispatch
-                  a second team to investigate.
+                  <strong>full GPS movement trail</strong> for every active
+                  rescuer, retained for the duration of the event. An operator
+                  can open any rescuer's profile and see their path drawn on the
+                  map: where they departed, what route they took, where their
+                  movement stopped, and the exact timestamp of their last
+                  recorded position.
+                </p>
+                <p>
+                  This gives the operator three critical pieces of intelligence:
+                  did the team reach the victim's area at all (they may have
+                  been blocked early), are they stationary at the victim's
+                  location (potentially on scene and performing a rescue without
+                  connectivity), or did they stop somewhere in between
+                  (potential difficulty). The trail is the basis for deciding
+                  the correct response — send a second rescue team to the
+                  victim, dispatch a welfare check to the rescuer's last known
+                  position, or both.
                 </p>
               </div>
             </div>
@@ -3539,6 +3583,634 @@
             </div>
           </div>
         </div>
+
+        <!-- ═══════════════ PART 5 ═══════════════ -->
+        <div class="part" id="p5">
+          <div class="part-eye">Part 5</div>
+          <h2>Jury Challenge — Hardest Questions & Model Answers</h2>
+          <p>
+            A senior jury member plays devil's advocate. These are the five
+            questions most likely to expose gaps — answered honestly and in
+            full.
+          </p>
+        </div>
+
+        <!-- difficulty legend -->
+        <div
+          style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px"
+        >
+          <div style="font-size: 12px; color: var(--ink-3); padding-top: 3px">
+            Difficulty:
+          </div>
+          <div
+            style="
+              font-size: 12px;
+              padding: 3px 10px;
+              border-radius: 999px;
+              background: var(--red-bg);
+              color: var(--red);
+              font-weight: 600;
+            "
+          >
+            ★★★★★ Lethal
+          </div>
+          <div
+            style="
+              font-size: 12px;
+              padding: 3px 10px;
+              border-radius: 999px;
+              background: var(--amber-bg);
+              color: var(--amber);
+              font-weight: 600;
+            "
+          >
+            ★★★★☆ Hard
+          </div>
+          <div
+            style="
+              font-size: 12px;
+              padding: 3px 10px;
+              border-radius: 999px;
+              background: var(--green-bg);
+              color: var(--green);
+              font-weight: 600;
+            "
+          >
+            ★★★☆☆ Medium
+          </div>
+        </div>
+
+        <!-- Q1 Drone relay -->
+        <div class="scenario" id="p5-j1" style="margin-bottom: 14px">
+          <div
+            class="sc-banner"
+            style="
+              background: var(--red-bg);
+              color: var(--red);
+              border-bottom: 1px solid var(--red-mid);
+            "
+          >
+            ★★★★★ Lethal — tests real-world viability, legal readiness, and cost
+            in one question
+          </div>
+          <div class="sc-head">
+            <div class="sc-type-row">
+              <span
+                class="sc-type"
+                style="background: var(--red-bg); color: var(--red)"
+                >Jury Challenge 1</span
+              >
+              <span class="qa-tag t-crit">Drone relay</span>
+            </div>
+            <div class="sc-title">
+              "Who actually operates the drone at 2 AM during peak flooding —
+              and do you have a flight permit?"
+            </div>
+            <div class="sc-ctx">
+              You mentioned a drone-based Wi-Fi relay to solve zero-connectivity
+              scenarios. My question is practical: who deploys that drone, who
+              operates it, how much does it cost, and have you secured the
+              regulatory clearance needed to fly over a disaster zone?
+            </div>
+          </div>
+          <div style="padding: 12px 16px 16px">
+            <div class="qa">
+              <div class="qa-q open" onclick="toggle(this)">
+                <span class="qa-num">A</span>
+                <span class="qa-text">Model answer</span>
+                <span class="qa-chevron open">›</span>
+              </div>
+              <div class="qa-a open">
+                <p>
+                  This is exactly the right question, and we won't sidestep it.
+                  The drone relay system is currently in the design and
+                  prototyping phase — it is not a production feature. We include
+                  it on our roadmap because the complete connectivity blackout
+                  scenario is the one problem that no purely software solution
+                  can solve, and we believe it deserves a real answer rather
+                  than a hand-wave.
+                </p>
+                <p>
+                  <strong>Who operates it:</strong> We do not plan to operate
+                  drones ourselves. The model is
+                  <strong
+                    >integration with existing drone units already embedded in
+                    civil defense and military disaster response teams.</strong
+                  >
+                  These units already have drones, already have deployment
+                  protocols for disaster zones, and already hold the relevant
+                  flight permits under Vietnam's Decree 36/2023/ND-CP governing
+                  UAV operations in emergency situations. Our contribution is
+                  the <strong>software layer</strong> that turns their drone
+                  into a Wi-Fi mesh relay node — not a new hardware purchase.
+                </p>
+                <p>
+                  <strong>Cost:</strong> An industrial drone with a 1–2 km
+                  coverage radius runs $15,000–40,000 USD. That is the operating
+                  agency's capital expenditure, not ours. Our platform fee does
+                  not include hardware. This is the same model as how we handle
+                  IoT sensors — we consume their data stream; we do not buy the
+                  sensor network.
+                </p>
+                <p>
+                  <strong>What exists today without drones:</strong> Local SOS
+                  queuing with automatic retry on reconnect handles the majority
+                  of temporary connectivity drops — signal loss during a flood
+                  is usually intermittent, not absolute. The drone layer
+                  addresses the 20% of scenarios where signal is genuinely
+                  absent for hours. Our current MVP has full value without any
+                  drone infrastructure.
+                </p>
+                <div class="note">
+                  Honest framing: drone relay is a planned extension that
+                  depends on government partnership and hardware access. It is
+                  not a feature we can demo today — but the problem it solves is
+                  real, and the integration model is realistic.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 Legal liability -->
+        <div class="scenario" id="p5-j2" style="margin-bottom: 14px">
+          <div
+            class="sc-banner"
+            style="
+              background: var(--red-bg);
+              color: var(--red);
+              border-bottom: 1px solid var(--red-mid);
+            "
+          >
+            ★★★★★ Lethal — no purely technical answer exists; requires legal and
+            ethical reasoning
+          </div>
+          <div class="sc-head">
+            <div class="sc-type-row">
+              <span
+                class="sc-type"
+                style="background: var(--red-bg); color: var(--red)"
+                >Jury Challenge 2</span
+              >
+              <span class="qa-tag t-crit">Legal liability</span>
+            </div>
+            <div class="sc-title">
+              "If a victim dies during your 20-minute auto-reassignment window —
+              who is legally responsible?"
+            </div>
+            <div class="sc-ctx">
+              Your system waits 15 minutes for a stationary rescuer, then 5 more
+              minutes for a response, then auto-reassigns. If a victim dies in
+              that 20-minute window, is the liability with your system, the
+              original rescuer, or the admin who didn't intervene manually?
+            </div>
+          </div>
+          <div style="padding: 12px 16px 16px">
+            <div class="qa">
+              <div class="qa-q open" onclick="toggle(this)">
+                <span class="qa-num">A</span>
+                <span class="qa-text">Model answer</span>
+                <span class="qa-chevron open">›</span>
+              </div>
+              <div class="qa-a open">
+                <p>
+                  This is a question about legal liability, not just system
+                  design, and the honest answer is:
+                  <strong
+                    >our platform is a coordination tool, not an autonomous
+                    emergency response authority.</strong
+                  >
+                  Legal responsibility for rescue outcomes rests with the
+                  licensed civil defense agency operating the system — the same
+                  agency that holds operational responsibility whether they use
+                  our app, a radio, or a spreadsheet.
+                </p>
+                <p>
+                  This is established in our service agreement: we are a data
+                  processor and software provider; the government agency is the
+                  data controller and operational authority. Every action taken
+                  by the system on their behalf — including auto-reassignment —
+                  is a function they have configured and accepted responsibility
+                  for, not an autonomous decision we impose.
+                </p>
+                <p>
+                  <strong>Why 20 minutes is the right threshold:</strong> A
+                  rescuer loading an elderly person onto a boat in floodwater
+                  can easily take 10–15 minutes without moving their phone.
+                  Setting the timer shorter creates false positives that disrupt
+                  active rescues. Setting it longer risks silently orphaning a
+                  victim. 15+5 minutes is a deliberate calibration, not an
+                  arbitrary number — and it is configurable by the agency if
+                  their operational context demands a tighter window.
+                </p>
+                <p>
+                  <strong>The admin is never locked out:</strong> The command
+                  dashboard shows any rescuer who has been stationary for more
+                  than 5 minutes with a visual flag. A human operator can
+                  intervene at any point before the automated timer fires. The
+                  20-minute auto-reassignment is a
+                  <strong
+                    >last-resort safety net for when operators are
+                    overwhelmed</strong
+                  >
+                  — not a replacement for human oversight.
+                </p>
+                <p>
+                  <strong>The audit trail:</strong> Every GPS position, every
+                  timestamp, every alert sent, every response received is logged
+                  permanently in PostgreSQL. This record is available for any
+                  post-incident legal investigation. Our system creates more
+                  accountability than a radio-based operation, not less.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 GPS battery -->
+        <div class="scenario" id="p5-j3" style="margin-bottom: 14px">
+          <div
+            class="sc-banner"
+            style="
+              background: var(--amber-bg);
+              color: var(--amber);
+              border-bottom: 1px solid var(--amber-mid);
+            "
+          >
+            ★★★★☆ Hard — requires real numbers; a vague answer fails immediately
+          </div>
+          <div class="sc-head">
+            <div class="sc-type-row">
+              <span
+                class="sc-type"
+                style="background: var(--amber-bg); color: var(--amber)"
+                >Jury Challenge 3</span
+              >
+              <span class="qa-tag t-high">GPS vs battery</span>
+            </div>
+            <div class="sc-title">
+              "Continuous GPS tracking drains battery. How much battery does a
+              rescuer have left after 8 hours on the water?"
+            </div>
+            <div class="sc-ctx">
+              Your movement-detection logic requires continuous GPS tracking of
+              every active rescuer. GPS is the single biggest battery drain on a
+              smartphone. How do you reconcile that with an 8-hour flood rescue
+              operation on a device that may have started the shift at 60%
+              battery?
+            </div>
+          </div>
+          <div style="padding: 12px 16px 16px">
+            <div class="qa">
+              <div class="qa-q open" onclick="toggle(this)">
+                <span class="qa-num">A</span>
+                <span class="qa-text">Model answer</span>
+                <span class="qa-chevron open">›</span>
+              </div>
+              <div class="qa-a open">
+                <p>
+                  Continuous GPS at full frequency is not how our system works —
+                  this is worth being precise about. We use
+                  <strong>adaptive polling with three states</strong> based on
+                  detected movement:
+                </p>
+                <div class="steps">
+                  <div class="step">
+                    <div
+                      class="step-n"
+                      style="background: var(--green-bg); color: var(--green)"
+                    >
+                      1
+                    </div>
+                    <div class="step-body">
+                      <strong>Active movement</strong> — GPS emitted every 3–5
+                      seconds. This is the highest drain state but only active
+                      when the rescuer is actually traveling.<span
+                        class="step-code"
+                        >~8–10% battery/hour on iPhone 12+</span
+                      >
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div
+                      class="step-n"
+                      style="background: var(--amber-bg); color: var(--amber)"
+                    >
+                      2
+                    </div>
+                    <div class="step-body">
+                      <strong>Stationary on scene</strong> — GPS polled every 30
+                      seconds. Rescuer is loading victims, performing first aid,
+                      navigating on foot. Dramatically lower drain.<span
+                        class="step-code"
+                        >~3–4% battery/hour</span
+                      >
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div
+                      class="step-n"
+                      style="background: var(--blue-bg); color: var(--blue)"
+                    >
+                      3
+                    </div>
+                    <div class="step-body">
+                      <strong>Standby / awaiting assignment</strong> — GPS
+                      polled every 2 minutes. Rescuer is at staging area between
+                      runs.<span class="step-code">~1–2% battery/hour</span>
+                    </div>
+                  </div>
+                </div>
+                <p>
+                  A realistic 8-hour shift splits roughly 3 hours active / 3
+                  hours on-scene / 2 hours standby, giving a weighted drain of
+                  approximately <strong>38–48% battery</strong> over the full
+                  shift. Starting at 100%, a rescuer ends with 52–62% remaining
+                  — sufficient margin. Starting at 60% is tighter: 12–22%
+                  remaining, which is why our rescuer onboarding explicitly
+                  includes a power bank as standard kit recommendation.
+                </p>
+                <p>
+                  Critically, our movement-detection algorithm does not require
+                  a GPS fix every second. It computes positional delta across
+                  three readings spaced 5 minutes apart. If all three readings
+                  are within 20 meters of each other, the stationary timer
+                  starts — this calculation uses cached GPS readings, not a new
+                  high-power acquisition each time.
+                </p>
+                <div class="note">
+                  Power bank recommendation is part of our rescuer onboarding
+                  checklist. It costs under $15 and eliminates the battery
+                  concern entirely for a full shift.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 Rescuer adoption -->
+        <div class="scenario" id="p5-j4" style="margin-bottom: 14px">
+          <div
+            class="sc-banner"
+            style="
+              background: var(--amber-bg);
+              color: var(--amber);
+              border-bottom: 1px solid var(--amber-mid);
+            "
+          >
+            ★★★★☆ Hard — tests pitch under pressure, not technical knowledge
+          </div>
+          <div class="sc-head">
+            <div class="sc-type-row">
+              <span
+                class="sc-type"
+                style="background: var(--amber-bg); color: var(--amber)"
+                >Jury Challenge 4</span
+              >
+              <span class="qa-tag t-high">Rescuer adoption</span>
+            </div>
+            <div class="sc-title">
+              "I'm a 15-year veteran rescue team leader. I have radio, I have my
+              team, I have experience. Give me one reason in 60 seconds to trust
+              your app over my system."
+            </div>
+            <div class="sc-ctx">
+              Your app requires adoption by field rescue teams who already have
+              working protocols. Experienced operators are skeptical of new
+              tools in high-stakes environments. How do you win that
+              conversation?
+            </div>
+          </div>
+          <div style="padding: 12px 16px 16px">
+            <div class="qa">
+              <div class="qa-q open" onclick="toggle(this)">
+                <span class="qa-num">A</span>
+                <span class="qa-text">Model answer</span>
+                <span class="qa-chevron open">›</span>
+              </div>
+              <div class="qa-a open">
+                <p>
+                  I'm not asking you to replace your system. Your radio stays
+                  on. Your experience stays the most important thing on the
+                  water. Nothing we build changes that.
+                </p>
+                <p>
+                  What I'm offering is the one thing radio cannot give you:
+                  <strong
+                    >you can see the whole picture at the same time.</strong
+                  >
+                </p>
+                <p>
+                  When 50 people call for help at 2 AM, radio gives you one
+                  voice at a time. You don't know which of your six boats is
+                  closest to which victim. You don't know which zone has no team
+                  heading to it. You don't know if two boats are going to the
+                  same person while someone else is waiting alone in rising
+                  water.
+                </p>
+                <p>
+                  Our dashboard shows you all of that on one screen, live,
+                  updated every few seconds. You still make every decision. We
+                  just make sure you're making those decisions with the full
+                  picture instead of fragments.
+                </p>
+                <p>
+                  And if our system goes down — your radio still works. Your
+                  team still knows what to do. We built it this way
+                  deliberately: we add capability, we don't create dependency.
+                </p>
+                <div class="note">
+                  Key principle: position the app as situational awareness for
+                  the commander, not a replacement for field judgment. The
+                  rescuer's experience is the product; our app is the instrument
+                  panel.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q5 Infrastructure trust -->
+        <div class="scenario" id="p5-j5" style="margin-bottom: 14px">
+          <div
+            class="sc-banner"
+            style="
+              background: var(--green-bg);
+              color: var(--green);
+              border-bottom: 1px solid var(--green-mid);
+            "
+          >
+            ★★★☆☆ Medium — has a clear structured answer; loses points only if
+            vague
+          </div>
+          <div class="sc-head">
+            <div class="sc-type-row">
+              <span
+                class="sc-type"
+                style="background: var(--green-bg); color: var(--green)"
+                >Jury Challenge 5</span
+              >
+              <span class="qa-tag t-prac">Infrastructure trust</span>
+            </div>
+            <div class="sc-title">
+              "You're deploying a life-critical system on Render — a platform
+              built for side projects. Why not AWS with a 99.99% SLA?"
+            </div>
+            <div class="sc-ctx">
+              Production life-safety systems require enterprise-grade
+              infrastructure with formal SLAs. Render's 99.9% uptime SLA means
+              up to 8.7 hours of downtime per year. That is not acceptable for a
+              flood rescue coordination platform.
+            </div>
+          </div>
+          <div style="padding: 12px 16px 16px">
+            <div class="qa">
+              <div class="qa-q open" onclick="toggle(this)">
+                <span class="qa-num">A</span>
+                <span class="qa-text">Model answer</span>
+                <span class="qa-chevron open">›</span>
+              </div>
+              <div class="qa-a open">
+                <p>
+                  The criticism is correct for production deployment. Render is
+                  our current MVP infrastructure — appropriate for a system
+                  serving hundreds of users during testing and pilot phases. It
+                  is not our target production infrastructure, and we have not
+                  claimed otherwise.
+                </p>
+                <p>
+                  <strong>The migration path is already designed:</strong> Our
+                  entire stack — Node.js, PostgreSQL, Redis — is cloud-agnostic
+                  and containerized. Moving to AWS (ECS + RDS + ElastiCache) or
+                  GCP (Cloud Run + Cloud SQL + Memorystore) is a deployment
+                  configuration change, not an architectural rebuild. We can
+                  execute this migration in under two weeks once we have a
+                  government contract that justifies the cost delta.
+                </p>
+                <p>
+                  <strong>The cost reality:</strong> Running AWS production
+                  infrastructure with proper redundancy, multi-AZ deployment,
+                  and 99.99% SLA costs $800–2,000/month at our current scale.
+                  That is appropriate cost for a paying government customer. It
+                  is not appropriate for a pre-revenue MVP. Spending investor
+                  money on AWS before we have a single paying user is poor
+                  capital allocation — not a sign of technical incompetence.
+                </p>
+                <p>
+                  <strong
+                    >What 99.9% vs 99.99% actually means in our context:</strong
+                  >
+                  Flood events in Vietnam last 3–7 days. The expected downtime
+                  difference between the two SLAs over a 7-day flood event is
+                  approximately <strong>36 seconds</strong>. The more meaningful
+                  resilience question is whether the system recovers quickly
+                  when it does go down — and our device-side queue means a
+                  60-second server outage results in zero lost SOS alerts,
+                  regardless of which cloud provider hosts us.
+                </p>
+                <table>
+                  <tr>
+                    <th>Infrastructure</th>
+                    <th>Current (MVP)</th>
+                    <th>Production target</th>
+                  </tr>
+                  <tr>
+                    <td>Provider</td>
+                    <td>Render</td>
+                    <td>AWS / GCP</td>
+                  </tr>
+                  <tr>
+                    <td>Uptime SLA</td>
+                    <td>99.9%</td>
+                    <td>99.99%</td>
+                  </tr>
+                  <tr>
+                    <td>Monthly cost</td>
+                    <td>~$80</td>
+                    <td>~$1,200</td>
+                  </tr>
+                  <tr>
+                    <td>Migration effort</td>
+                    <td colspan="2">~2 weeks, no code changes</td>
+                  </tr>
+                  <tr>
+                    <td>Trigger</td>
+                    <td colspan="2">First signed government contract</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- difficulty summary table -->
+        <div class="part" style="margin-top: 32px">
+          <div class="part-eye">Summary</div>
+          <h2>Jury Challenge Difficulty Ratings</h2>
+        </div>
+        <table>
+          <tr>
+            <th>#</th>
+            <th>Topic</th>
+            <th>Difficulty</th>
+            <th>Why it's hard</th>
+          </tr>
+          <tr>
+            <td>J1</td>
+            <td>Drone relay viability</td>
+            <td>
+              <span style="color: var(--red); font-weight: 700">★★★★★</span>
+            </td>
+            <td>
+              Exposes a roadmap item as unbuilt; requires honest scoping +
+              realistic partnership model
+            </td>
+          </tr>
+          <tr>
+            <td>J2</td>
+            <td>Legal liability for auto-reassignment</td>
+            <td>
+              <span style="color: var(--red); font-weight: 700">★★★★★</span>
+            </td>
+            <td>
+              No purely technical answer — requires legal framework, ethical
+              reasoning, and audit trail
+            </td>
+          </tr>
+          <tr>
+            <td>J3</td>
+            <td>GPS drain over 8-hour shift</td>
+            <td>
+              <span style="color: var(--amber); font-weight: 700">★★★★☆</span>
+            </td>
+            <td>
+              Requires real numbers; a vague answer ("we optimise battery")
+              fails immediately
+            </td>
+          </tr>
+          <tr>
+            <td>J4</td>
+            <td>Convincing a veteran rescuer</td>
+            <td>
+              <span style="color: var(--amber); font-weight: 700">★★★★☆</span>
+            </td>
+            <td>
+              Tests pitch under social pressure, not technical knowledge — a
+              different skill
+            </td>
+          </tr>
+          <tr>
+            <td>J5</td>
+            <td>Render vs AWS infrastructure</td>
+            <td>
+              <span style="color: var(--green); font-weight: 700">★★★☆☆</span>
+            </td>
+            <td>
+              Has a clear structured answer; loses points only if the team is
+              vague about the migration plan
+            </td>
+          </tr>
+        </table>
 
         <div
           style="
@@ -3596,6 +4268,11 @@
         'st-a',
         'st-b',
         'st-c',
+        'p5-j1',
+        'p5-j2',
+        'p5-j3',
+        'p5-j4',
+        'p5-j5',
       ];
       window.addEventListener(
         'scroll',
