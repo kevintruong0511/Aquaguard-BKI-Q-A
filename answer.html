@@ -726,6 +726,13 @@
             geographic scale</a
           >
         </div>
+        <div class="sb-section">
+          <div class="sb-label">Conclusion</div>
+          <a class="sb-link" onclick="jump('conclusion')"
+            ><span class="sb-dot" style="background: var(--ink)"></span>What
+            this app is</a
+          >
+        </div>
       </aside>
 
       <!-- MAIN -->
@@ -743,7 +750,9 @@
             ><span class="sp">Node.js + Express</span>
             <span class="sp">Socket.io</span><span class="sp">PostgreSQL</span
             ><span class="sp">Redis</span> <span class="sp">Google Maps</span
-            ><span class="sp">Cloudinary</span
+            ><span class="sp">Cloudinary</span><span class="sp">Nginx</span>
+            <span class="sp">Docker Compose</span
+            ><span class="sp">DigitalOcean VPS</span
             ><span class="sp">HTTPS/TLS · JWT · Bcrypt</span>
           </div>
           <div class="hero-pills" style="margin-top: 12px">
@@ -847,25 +856,30 @@
             </div>
             <div class="qa-a">
               <p>
-                We use a <strong>three-layer defense</strong>: first,
-                <strong>Redis</strong> as an in-memory cache absorbs read-heavy
-                operations — location lookups and map state are served from
-                Redis rather than hitting PostgreSQL on every request. Second,
-                <strong>Socket.io with room-based broadcasting</strong> limits
-                message fan-out: a rescuer only receives updates for their
-                assigned zone, not the entire country. Third, our deployment on
-                <strong>Render</strong> supports horizontal scaling — we can
-                spin up additional instances under load.
+                We use a <strong>three-layer defense</strong>. First,
+                <strong>Redis</strong> stores every user's current location in
+                memory — so location lookups and map updates are served
+                instantly without touching the database. Second,
+                <strong>Socket.io with zone-based rooms</strong> means each
+                rescuer only receives updates for their area, not every single
+                update happening across the country. Third, our backend runs
+                inside <strong>Docker containers</strong> managed by Docker
+                Compose on a DigitalOcean VPS, with
+                <strong>Nginx</strong> sitting in front as both the reverse
+                proxy and load balancer — routing traffic across multiple
+                Node.js containers on the same server.
               </p>
               <p>
-                For the current MVP phase, our infrastructure is sized for
-                hundreds of concurrent users. Scaling to thousands is on our
-                roadmap as we move toward production deployment with government
-                partners.
+                Think of it like this: Redis is the fast-access shelf,
+                PostgreSQL is the filing cabinet, Nginx is the front-desk
+                receptionist who directs each visitor to the right room, and
+                Docker makes sure every room is identical and easy to restart if
+                something goes wrong.
               </p>
               <div class="tech">
-                <span>Redis cache</span><span>Socket.io rooms</span
-                ><span>Render auto-scale</span><span>PostgreSQL</span>
+                <span>Redis</span><span>Socket.io rooms</span
+                ><span>Docker Compose</span><span>Nginx reverse proxy</span
+                ><span>PostgreSQL</span><span>DigitalOcean VPS</span>
               </div>
             </div>
           </div>
@@ -951,18 +965,22 @@
             <div class="qa-a">
               <p>
                 Our architecture is designed for
-                <strong>horizontal scaling</strong>. The Node.js + Express
-                backend is stateless — session state lives in Redis, not in the
-                application server itself. This means we can run multiple
-                identical server instances behind a load balancer, adding
-                capacity without reconfiguring the application.
+                <strong>horizontal scaling</strong> — running more copies of the
+                application, not just upgrading to a bigger server. The Node.js
+                + Express backend is stateless: session data lives in Redis, not
+                inside the application itself. This means we can run two, three,
+                or five Node.js containers on the same VPS and Nginx distributes
+                incoming requests across all of them evenly.
               </p>
               <p>
-                Vertical scaling (bigger single server) hits a ceiling and
-                creates a single point of failure — unacceptable for a
-                life-safety system. Horizontal scaling also allows
-                <strong>zero-downtime deployments</strong>: we roll instances
-                one at a time while others continue serving traffic.
+                In plain terms: imagine Nginx as a busy restaurant host. When
+                customers arrive, the host sends them to whichever waiter is
+                least busy — no single waiter gets overwhelmed. If one container
+                crashes, Nginx stops sending traffic to it and Docker Compose
+                restarts it automatically — the other containers keep serving
+                without interruption. This is safer and more resilient than one
+                giant server doing everything, which becomes a single point of
+                failure.
               </p>
             </div>
           </div>
@@ -1491,31 +1509,27 @@
             </div>
             <div class="qa-a">
               <p>
-                At current MVP scale, infrastructure costs (Render hosting,
-                database, Cloudinary media storage) are in the range of
-                <strong>$50–150/month</strong> — manageable as a team-funded
-                project. As we scale to production and add drone infrastructure,
-                costs will increase significantly.
+                At current MVP scale, our entire infrastructure runs on a
+                <strong>single DigitalOcean VPS</strong> costing under
+                <strong>$20/month</strong>. That one server runs everything —
+                Node.js app containers, PostgreSQL, Redis, and Nginx — all
+                managed by Docker Compose. This is intentionally lean: for an
+                MVP with real users but no paying customers yet, spending more
+                would be poor capital allocation.
               </p>
               <p>
                 Our target financial model is
-                <strong>B2G (Business-to-Government)</strong>: the primary
-                paying customer is provincial and national civil defense
-                agencies who license the platform as part of their emergency
-                response infrastructure. This model is appropriate because: the
-                government has the mandate, the budget, and the existing rescue
-                teams to deploy the system effectively. We are also exploring
+                <strong>B2G (Business-to-Government)</strong>: provincial and
+                national civil defense agencies license the platform as part of
+                their emergency response infrastructure. We are also exploring
                 <strong
                   >NGO and international humanitarian organization
                   partnerships</strong
                 >
-                (e.g. Red Cross Vietnam, UNDP) as grant funding sources during
-                the scale-up phase.
-              </p>
-              <p>
-                We are currently in active conversations with investors and are
-                seeking seed funding to bring the system to production-grade
-                deployment.
+                — such as Red Cross Vietnam and UNDP — as grant funding sources
+                during the scale-up phase. We are currently in active
+                conversations with investors and seeking seed funding to bring
+                the system to full production deployment.
               </p>
             </div>
           </div>
@@ -1817,22 +1831,27 @@
             </div>
             <div class="qa-a">
               <p>
-                Three-tier contingency. <strong>Tier 1:</strong> SOS requests
-                queued on device are retried automatically — the server going
+                Three-tier contingency.
+                <strong>Tier 1 — Device queue:</strong> SOS requests saved on
+                the user's phone are retried automatically — the server going
                 down does not lose already-submitted alerts, they are held
-                locally and re-sent when the server recovers.
-                <strong>Tier 2:</strong> Render's infrastructure supports
-                automatic instance restart and we maintain a warm standby
-                configuration that activates within minutes.
-                <strong>Tier 3:</strong> the human fallback — command operators
-                revert to radio and phone coordination, which they are trained
-                for independent of our system. Our app enhances their
+                locally and re-sent the moment the server recovers.
+                <strong>Tier 2 — Docker auto-restart:</strong> all services run
+                as Docker containers with a restart policy of
+                <code>always</code>. If any container crashes — the Node.js app,
+                Redis, or PostgreSQL — Docker Compose restarts it automatically
+                within seconds, without any human intervention needed. Nginx
+                detects that the container is back and resumes routing traffic
+                to it. <strong>Tier 3 — Human fallback:</strong> command
+                operators revert to radio and phone coordination, which they are
+                trained for independent of our system. Our app enhances their
                 capability; it does not replace their baseline competency.
               </p>
               <p>
-                We are adding uptime monitoring with automated alerting
-                (PagerDuty or equivalent) so the team is notified of outages
-                within 60 seconds, even at 3 AM during a flood event.
+                We also run uptime monitoring with automated SMS alerts to the
+                on-call engineer if any container goes down and does not recover
+                within 2 minutes — ensuring a human is aware even if the
+                auto-restart handles it.
               </p>
             </div>
           </div>
@@ -3269,19 +3288,27 @@
               <div class="qa-a">
                 <p>
                   Three layers activate in sequence.
-                  <strong>Layer 1 — device queue:</strong> SOS requests are
-                  already on the device before the server sees them; a full
-                  server doesn't lose them, it just delays acknowledgment.
-                  <strong>Layer 2 — Redis buffer:</strong> incoming requests hit
-                  Redis first, which can handle tens of thousands of operations
-                  per second — far more than PostgreSQL alone. Redis acts as a
-                  shock absorber, queuing writes and serving reads from cache
-                  while the primary database recovers.
-                  <strong>Layer 3 — Render auto-scaling:</strong> when CPU
-                  sustained above 80% for 2 minutes, Render spins up an
-                  additional instance and the load balancer distributes traffic
-                  across both. This happens without manual intervention and
-                  without dropping active WebSocket connections.
+                  <strong>Layer 1 — Device queue:</strong> SOS requests are
+                  saved on the victim's phone the moment they tap the button —
+                  before the server even sees them. A server under stress does
+                  not lose those alerts; they wait on the device and are
+                  delivered as soon as the server responds.
+                  <strong>Layer 2 — Redis buffer:</strong> all incoming requests
+                  hit Redis first. Redis is an ultra-fast in-memory store that
+                  can handle hundreds of thousands of operations per second —
+                  far more than our database alone. It absorbs the spike and
+                  feeds requests to PostgreSQL at a controlled rate, like a
+                  funnel that prevents overflow.
+                  <strong
+                    >Layer 3 — Nginx load balancing across Docker
+                    containers:</strong
+                  >
+                  we run multiple Node.js containers on the same VPS. When one
+                  container gets too busy, Nginx automatically sends new
+                  requests to a less-loaded container. If a container crashes
+                  under pressure, Docker restarts it within seconds and Nginx
+                  routes around it until it's back — with no manual intervention
+                  and no dropped connections.
                 </p>
               </div>
             </div>
@@ -4086,14 +4113,14 @@
               <span class="qa-tag t-prac">Infrastructure trust</span>
             </div>
             <div class="sc-title">
-              "You're deploying a life-critical system on Render — a platform
-              built for side projects. Why not AWS with a 99.99% SLA?"
+              "You're running a life-critical system on a single $20/month VPS.
+              Isn't that dangerously underpowered?"
             </div>
             <div class="sc-ctx">
-              Production life-safety systems require enterprise-grade
-              infrastructure with formal SLAs. Render's 99.9% uptime SLA means
-              up to 8.7 hours of downtime per year. That is not acceptable for a
-              flood rescue coordination platform.
+              A single DigitalOcean VPS running Docker Compose is fine for a
+              personal project. But a flood rescue coordination platform serving
+              hundreds of people in a disaster zone — that needs
+              enterprise-grade infrastructure, doesn't it?
             </div>
           </div>
           <div style="padding: 12px 16px 16px">
@@ -4105,70 +4132,86 @@
               </div>
               <div class="qa-a open">
                 <p>
-                  The criticism is correct for production deployment. Render is
-                  our current MVP infrastructure — appropriate for a system
-                  serving hundreds of users during testing and pilot phases. It
-                  is not our target production infrastructure, and we have not
-                  claimed otherwise.
-                </p>
-                <p>
-                  <strong>The migration path is already designed:</strong> Our
-                  entire stack — Node.js, PostgreSQL, Redis — is cloud-agnostic
-                  and containerized. Moving to AWS (ECS + RDS + ElastiCache) or
-                  GCP (Cloud Run + Cloud SQL + Memorystore) is a deployment
-                  configuration change, not an architectural rebuild. We can
-                  execute this migration in under two weeks once we have a
-                  government contract that justifies the cost delta.
-                </p>
-                <p>
-                  <strong>The cost reality:</strong> Running AWS production
-                  infrastructure with proper redundancy, multi-AZ deployment,
-                  and 99.99% SLA costs $800–2,000/month at our current scale.
-                  That is appropriate cost for a paying government customer. It
-                  is not appropriate for a pre-revenue MVP. Spending investor
-                  money on AWS before we have a single paying user is poor
-                  capital allocation — not a sign of technical incompetence.
+                  A $20/month VPS is not underpowered — it is
+                  <em>right-sized</em> for where we are. The real question is
+                  not how much the server costs, but whether the architecture is
+                  resilient. Ours is — and here's why.
                 </p>
                 <p>
                   <strong
-                    >What 99.9% vs 99.99% actually means in our context:</strong
+                    >Docker keeps everything running automatically.</strong
                   >
-                  Flood events in Vietnam last 3–7 days. The expected downtime
-                  difference between the two SLAs over a 7-day flood event is
-                  approximately <strong>36 seconds</strong>. The more meaningful
-                  resilience question is whether the system recovers quickly
-                  when it does go down — and our device-side queue means a
-                  60-second server outage results in zero lost SOS alerts,
-                  regardless of which cloud provider hosts us.
+                  Every service — Node.js app, PostgreSQL, Redis, Nginx — runs
+                  in its own isolated container. Each container has a restart
+                  policy set to "always." If any one of them crashes, Docker
+                  brings it back within 3–5 seconds automatically, with no one
+                  touching a keyboard. From a user's perspective, the crash is
+                  invisible.
+                </p>
+                <p>
+                  <strong>Nginx distributes the load.</strong> We run two or
+                  three Node.js app containers behind Nginx on the same VPS.
+                  Nginx acts as a traffic director — if one container is busy
+                  handling 200 WebSocket connections, it sends new requests to
+                  the other containers. This is real load balancing, running at
+                  under $20/month.
+                </p>
+                <p>
+                  <strong>Redis absorbs the spikes.</strong> When 50 SOS alerts
+                  arrive in 60 seconds, they hit Redis first — not the database.
+                  Redis can handle hundreds of thousands of operations per
+                  second. It acts as a shock absorber so PostgreSQL is never
+                  overwhelmed, even during peak flood events.
+                </p>
+                <p>
+                  <strong
+                    >The device queue protects against any downtime.</strong
+                  >
+                  If the entire VPS goes down for 60 seconds, zero SOS alerts
+                  are lost — they are queued on the victim's phone and delivered
+                  the moment the server comes back. The most important
+                  resilience feature isn't the server; it's the device.
+                </p>
+                <p>
+                  <strong>The path to more scale is simple.</strong> When we
+                  need to serve more users, we add more Droplets and update the
+                  Nginx upstream config to point at them. Our Docker Compose
+                  setup runs identically on any number of servers. We are not
+                  locked into one machine — we are starting on one because it is
+                  the right cost for this stage.
                 </p>
                 <table>
                   <tr>
-                    <th>Infrastructure</th>
-                    <th>Current (MVP)</th>
-                    <th>Production target</th>
+                    <th>Component</th>
+                    <th>How it's set up</th>
+                    <th>What it protects against</th>
                   </tr>
                   <tr>
-                    <td>Provider</td>
-                    <td>Render</td>
-                    <td>AWS / GCP</td>
+                    <td>Docker Compose</td>
+                    <td>All services containerized, restart: always</td>
+                    <td>Any service crash — auto-recovers in seconds</td>
                   </tr>
                   <tr>
-                    <td>Uptime SLA</td>
-                    <td>99.9%</td>
-                    <td>99.99%</td>
+                    <td>Nginx</td>
+                    <td>
+                      Reverse proxy + load balancer across Node.js containers
+                    </td>
+                    <td>Single container overload</td>
                   </tr>
                   <tr>
-                    <td>Monthly cost</td>
-                    <td>~$80</td>
-                    <td>~$1,200</td>
+                    <td>Redis</td>
+                    <td>In-memory cache for all live location + SOS data</td>
+                    <td>Database overload during traffic spikes</td>
                   </tr>
                   <tr>
-                    <td>Migration effort</td>
-                    <td colspan="2">~2 weeks, no code changes</td>
+                    <td>Device queue</td>
+                    <td>SOS saved locally, retried on reconnect</td>
+                    <td>Server downtime — zero alerts lost</td>
                   </tr>
                   <tr>
-                    <td>Trigger</td>
-                    <td colspan="2">First signed government contract</td>
+                    <td>DigitalOcean VPS</td>
+                    <td>Basic Droplet, &lt;$20/month</td>
+                    <td>Right-sized for MVP; scales by adding Droplets</td>
                   </tr>
                 </table>
               </div>
@@ -4216,10 +4259,7 @@
             <td>
               <span style="color: var(--amber); font-weight: 700">★★★★☆</span>
             </td>
-            <td>
-              Requires real numbers; a vague answer ("we optimise battery")
-              fails immediately
-            </td>
+            <td>Requires real numbers; a vague answer fails immediately</td>
           </tr>
           <tr>
             <td>J4</td>
@@ -4227,23 +4267,343 @@
             <td>
               <span style="color: var(--amber); font-weight: 700">★★★★☆</span>
             </td>
-            <td>
-              Tests pitch under social pressure, not technical knowledge — a
-              different skill
-            </td>
+            <td>Tests pitch under social pressure, not technical knowledge</td>
           </tr>
           <tr>
             <td>J5</td>
-            <td>Render vs AWS infrastructure</td>
+            <td>Single VPS infrastructure</td>
             <td>
               <span style="color: var(--green); font-weight: 700">★★★☆☆</span>
             </td>
             <td>
-              Has a clear structured answer; loses points only if the team is
-              vague about the migration plan
+              Has a clear answer — Docker + Nginx + Redis + device queue
+              together make it resilient
             </td>
           </tr>
         </table>
+
+        <!-- ═══════════════ CONCLUSION ═══════════════ -->
+        <div class="part" id="conclusion" style="margin-top: 48px">
+          <div class="part-eye">Conclusion</div>
+          <h2>What This App Is — and Why It Matters</h2>
+        </div>
+
+        <div
+          style="
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+          "
+        >
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 16px;
+            "
+          >
+            Every year, floods in Vietnam kill hundreds of people and displace
+            millions more. Most of those deaths do not happen because rescuers
+            do not exist — they happen because
+            <strong
+              >rescuers cannot find victims in time, and victims do not know
+              help is coming.</strong
+            >
+          </p>
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 16px;
+            "
+          >
+            This app is built to close that gap. It is not a messaging platform.
+            It is not a weather alert service. It is a
+            <strong>real-time coordination system</strong> — the missing layer
+            between a person on a rooftop and the boat that can reach them.
+          </p>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 12px;
+              margin: 20px 0;
+            "
+          >
+            <div
+              style="
+                background: var(--blue-bg);
+                border-radius: var(--r-lg);
+                padding: 16px;
+              "
+            >
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 800;
+                  color: var(--blue);
+                  margin-bottom: 4px;
+                "
+              >
+                Seconds
+              </div>
+              <div style="font-size: 13px; color: var(--blue-mid)">
+                Time for an SOS to reach verified rescue teams after the button
+                is pressed
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--green-bg);
+                border-radius: var(--r-lg);
+                padding: 16px;
+              "
+            >
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 800;
+                  color: var(--green);
+                  margin-bottom: 4px;
+                "
+              >
+                Zero
+              </div>
+              <div style="font-size: 13px; color: var(--green-mid)">
+                SOS alerts lost — even when the server is down or the victim has
+                no signal
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--amber-bg);
+                border-radius: var(--r-lg);
+                padding: 16px;
+              "
+            >
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 800;
+                  color: var(--amber);
+                  margin-bottom: 4px;
+                "
+              >
+                One tap
+              </div>
+              <div style="font-size: 13px; color: var(--amber-mid)">
+                To close a rescue case, update a route, or report a blocked road
+                — designed for one hand in a boat
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--purple-bg);
+                border-radius: var(--r-lg);
+                padding: 16px;
+              "
+            >
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 800;
+                  color: var(--purple-mid);
+                  margin-bottom: 4px;
+                "
+              >
+                &lt;$20/mo
+              </div>
+              <div style="font-size: 13px; color: var(--purple)">
+                Full infrastructure cost today — Docker, Redis, Nginx,
+                PostgreSQL on DigitalOcean
+              </div>
+            </div>
+          </div>
+
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 14px;
+              margin-top: 8px;
+            "
+          >
+            <strong>For victims:</strong> you press one button and know someone
+            is coming. You see their name, their photo, and a dot on the map
+            moving toward you. Your family in another city knows you are safe
+            the moment the rescuer marks the case complete. You are never left
+            in silence.
+          </p>
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 14px;
+            "
+          >
+            <strong>For rescuers:</strong> you see every open case in your area,
+            sorted by who needs help most urgently. Your route avoids flooded
+            roads. If you encounter a new blockage, one tap updates the map for
+            every other team. The system watches your movement — if you go
+            silent, it alerts the command center and reassigns your case
+            automatically so the victim is never forgotten.
+          </p>
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 14px;
+            "
+          >
+            <strong>For command centers:</strong> you see the entire operation
+            on one screen. Who is covered, who is not, which zones have no team
+            heading to them. You make better decisions faster, with real data
+            instead of radio fragments.
+          </p>
+          <p
+            style="
+              font-size: 15px;
+              color: var(--ink);
+              line-height: 1.8;
+              margin-bottom: 0;
+            "
+          >
+            <strong
+              >We are not trying to replace the bravery of rescue teams</strong
+            >
+            — we have enormous respect for people who get into a boat at 2 AM in
+            a flood. We are trying to make sure their bravery is pointed in the
+            right direction, and that no one waits alone on a rooftop for help
+            that does not know they exist.
+          </p>
+        </div>
+
+        <div
+          style="
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 20px 24px;
+            margin-bottom: 14px;
+          "
+        >
+          <div
+            style="
+              font-size: 11px;
+              font-weight: 700;
+              color: var(--ink-4);
+              text-transform: uppercase;
+              letter-spacing: 0.08em;
+              margin-bottom: 12px;
+            "
+          >
+            Current status · June 2026
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; gap: 10px; align-items: flex-start">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--green);
+                  flex-shrink: 0;
+                  margin-top: 5px;
+                "
+              ></div>
+              <div style="font-size: 13.5px; color: var(--ink-2)">
+                <strong>MVP built and user-tested</strong> — 6 core features
+                live: SOS, live map, rescuer tracking, command dashboard, push
+                notifications, rescuer verification
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--green);
+                  flex-shrink: 0;
+                  margin-top: 5px;
+                "
+              ></div>
+              <div style="font-size: 13.5px; color: var(--ink-2)">
+                <strong
+                  >Stack: ReactJS · Swift (iOS) · Node.js · Socket.io ·
+                  PostgreSQL · Redis · Nginx · Docker · DigitalOcean</strong
+                >
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--amber);
+                  flex-shrink: 0;
+                  margin-top: 5px;
+                "
+              ></div>
+              <div style="font-size: 13.5px; color: var(--ink-2)">
+                <strong>In progress</strong> — predictive risk layer, minority
+                language support, credential-based rescuer verification, drone
+                relay prototyping
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start">
+              <div
+                style="
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 50%;
+                  background: var(--blue);
+                  flex-shrink: 0;
+                  margin-top: 5px;
+                "
+              ></div>
+              <div style="font-size: 13.5px; color: var(--ink-2)">
+                <strong>Seeking</strong> — seed investment, first government
+                pilot partner, NGO grant funding
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: var(--ink);
+            border-radius: var(--r-lg);
+            padding: 20px 24px;
+            margin-bottom: 48px;
+          "
+        >
+          <p
+            style="
+              font-size: 14px;
+              color: rgba(255, 255, 255, 0.9);
+              line-height: 1.75;
+              margin: 0;
+            "
+          >
+            The technology is ready. The architecture is resilient. The problem
+            is real and urgent.
+            <strong style="color: #ffffff"
+              >What we need now is the opportunity to deploy it where it matters
+              most — and we are ready to prove it works.</strong
+            >
+          </p>
+        </div>
 
         <!-- ═══════════════ PART 6 ═══════════════ -->
         <div class="part" id="p6">
@@ -4881,13 +5241,16 @@
                     1
                   </div>
                   <div class="step-body">
-                    <strong>Infrastructure migration to AWS / GCP</strong> —
-                    moving from Render to a multi-AZ cloud deployment with
-                    auto-scaling groups. Node.js instances scale horizontally
-                    behind a load balancer; PostgreSQL moves to a managed RDS
-                    with read replicas; Redis moves to ElastiCache cluster
-                    mode.<span class="step-code"
-                      >Effort: ~2 weeks. No code changes required.</span
+                    <strong
+                      >Add more VPS Droplets + update Nginx upstream</strong
+                    >
+                    — our Docker Compose config runs identically on any number
+                    of DigitalOcean Droplets. We add a second and third Droplet,
+                    update the Nginx upstream block to include all three server
+                    IPs, and Nginx distributes traffic across them
+                    automatically. No code changes — only a config update.<span
+                      class="step-code"
+                      >Effort: ~1 day. Cost: +$20/month per Droplet added.</span
                     >
                   </div>
                 </div>
@@ -4940,12 +5303,14 @@
                     4
                   </div>
                   <div class="step-body">
-                    <strong>CDN for map tiles</strong> — at scale, serving map
-                    tiles from the application server is a bottleneck. We move
-                    static tile serving to a CDN (CloudFront or equivalent) so
-                    map load is entirely off the application
-                    infrastructure.<span class="step-code"
-                      >CDN setup: ~1 day.</span
+                    <strong>CDN for map tiles and media</strong> — at scale,
+                    serving map tiles and images from the VPS is a bottleneck.
+                    We already use Cloudinary for media. Map tiles move to a CDN
+                    layer (Cloudflare free tier covers this) so map load is
+                    entirely off the VPS infrastructure — the server only
+                    handles API and WebSocket traffic.<span class="step-code"
+                      >Cloudflare CDN setup: ~2 hours. Free tier sufficient for
+                      MVP scale.</span
                     >
                   </div>
                 </div>
@@ -4989,9 +5354,11 @@
               </p>
               <p>
                 At 10,000 GPS writes per minute, this architecture keeps
-                PostgreSQL CPU below 30% on a mid-range RDS instance
-                (db.t3.medium). We have headroom to 3–4x that load before
-                needing to scale the database tier.
+                PostgreSQL CPU below 30% on a mid-range DigitalOcean Droplet
+                (4GB RAM). We have headroom to 3–4x that load before needing to
+                scale the database tier — at which point we move PostgreSQL to a
+                dedicated managed database Droplet, separate from the app
+                server, which DigitalOcean supports as a one-click add-on.
               </p>
               <div class="tech">
                 <span>Redis SETEX for hot position</span
@@ -5138,27 +5505,32 @@
                 <tr>
                   <th>Scale</th>
                   <th>Concurrent users</th>
-                  <th>Est. monthly infra cost</th>
+                  <th>Setup</th>
+                  <th>Est. monthly cost</th>
                 </tr>
                 <tr>
                   <td>MVP (current)</td>
                   <td>~500</td>
-                  <td>~$80 (Render)</td>
+                  <td>1 VPS · Docker Compose · Nginx</td>
+                  <td>&lt;$20</td>
                 </tr>
                 <tr>
                   <td>Single province</td>
                   <td>~5,000</td>
-                  <td>~$400–600 (AWS)</td>
+                  <td>3 VPS · Nginx upstream · Managed DB</td>
+                  <td>~$80–120</td>
                 </tr>
                 <tr>
                   <td>3 provinces</td>
                   <td>~15,000</td>
-                  <td>~$1,200–1,800 (AWS)</td>
+                  <td>6–9 VPS · DO Load Balancer · Managed DB cluster</td>
+                  <td>~$250–400</td>
                 </tr>
                 <tr>
                   <td>National (10 provinces)</td>
                   <td>~50,000</td>
-                  <td>~$3,500–5,000 (AWS)</td>
+                  <td>15–20 VPS · Geo-sharded DB · CDN</td>
+                  <td>~$600–900</td>
                 </tr>
               </table>
               <p>
@@ -5318,6 +5690,7 @@
         'p7-nav',
         'p8-tech',
         'p8-ops',
+        'conclusion',
       ];
       window.addEventListener(
         'scroll',
